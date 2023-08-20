@@ -1,6 +1,5 @@
 package com.example.ssgfdsstudy.config;
 
-import com.example.ssgfdsstudy.dto.DataObject;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,7 +35,7 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public ProducerFactory<String, DataObject> fdsDataProducerFactory() {
+    public ProducerFactory<String, Map<String, Object>> fdsDataProducerFactory() {
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(
                 ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
@@ -51,7 +50,7 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public KafkaTemplate<String, DataObject> mapKafkaTemplate() {
+    public KafkaTemplate<String, Map<String, Object>> mapKafkaTemplate() {
         return new KafkaTemplate<>(fdsDataProducerFactory());
     }
 

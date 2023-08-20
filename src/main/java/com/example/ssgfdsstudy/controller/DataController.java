@@ -8,15 +8,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
 public class DataController {
 
-    private final KafkaTemplate<String, DataObject> kafkaTemplate;
+    private final KafkaTemplate<String, Map<String, Object>> kafkaTemplate;
 
     public void sendMessage(DataObject dataObject){
-        kafkaTemplate.send("ssgstudy-fds-data", dataObject);
+        Map<String, Object> dataMap = dataObject.getDataMap();
+        kafkaTemplate.send("ssgstudy-fds-data", dataMap);
     }
 
     @PostMapping("/data/collect")
